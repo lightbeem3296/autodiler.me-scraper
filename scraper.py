@@ -39,112 +39,122 @@ def input_filter(
     city: str = "",
 ):
     # manufacturer
-    filter_field = page.query_selector_all("div.polja-pretrage-item")[0]
-    filter_field.query_selector("div>label").click(delay=100, click_count=2)
-    page.keyboard.type(manufacturer, delay=75)
-    time.sleep(2)
-    items = filter_field.query_selector_all("li.select-dropdown-item")
-    for item in items:
-        if item.inner_text().strip() == manufacturer:
-            item.click()
-            break
+    if manufacturer != "":
+        filter_field = page.query_selector_all("div.polja-pretrage-item")[0]
+        filter_field.query_selector("div>label").click(delay=100, click_count=2)
+        page.keyboard.type(manufacturer, delay=75)
+        time.sleep(2)
+        items = filter_field.query_selector_all("li.select-dropdown-item")
+        for item in items:
+            if item.inner_text().strip() == manufacturer:
+                item.click()
+                break
 
     # model
-    time.sleep(1)
-    filter_field = page.query_selector_all("div.polja-pretrage-item")[1]
-    filter_field.query_selector("div>label").click(delay=100, click_count=2)
-    page.keyboard.type(model, delay=75)
-    time.sleep(2)
-    items = filter_field.query_selector_all("li.select-dropdown-item")
-    for item in items:
-        if item.inner_text().strip() == model:
-            item.click()
-            break
+    if model != "":
+        time.sleep(1)
+        filter_field = page.query_selector_all("div.polja-pretrage-item")[1]
+        filter_field.query_selector("div>label").click(delay=100, click_count=2)
+        page.keyboard.type(model, delay=75)
+        time.sleep(2)
+        items = filter_field.query_selector_all("li.select-dropdown-item")
+        for item in items:
+            if item.inner_text().strip() == model:
+                item.click()
+                break
 
     # body
-    filter_field = page.query_selector_all("div.polja-pretrage-item")[2]
-    filter_field.query_selector("div>label").click(delay=100, click_count=2)
-    page.keyboard.type(body, delay=75)
-    time.sleep(2)
-    items = filter_field.query_selector_all("li.select-dropdown-item")
-    for item in items:
-        if item.inner_text().strip() == body:
-            item.click()
-            break
+    if body != "":
+        filter_field = page.query_selector_all("div.polja-pretrage-item")[2]
+        filter_field.query_selector("div>label").click(delay=100, click_count=2)
+        page.keyboard.type(body, delay=75)
+        time.sleep(2)
+        items = filter_field.query_selector_all("li.select-dropdown-item")
+        for item in items:
+            if item.inner_text().strip() == body:
+                item.click()
+                break
 
     # fuel
-    filter_field = page.query_selector_all("div.polja-pretrage-item")[3]
-    filter_field.query_selector("div>label").click(delay=100, click_count=2)
-    items = filter_field.query_selector_all("li.select-dropdown-item")
-    for item in items:
-        if item.inner_text().strip() == fuel:
-            item.click()
-            break
+    if fuel != "":
+        filter_field = page.query_selector_all("div.polja-pretrage-item")[3]
+        filter_field.query_selector("div>label").click(delay=100, click_count=2)
+        items = filter_field.query_selector_all("li.select-dropdown-item")
+        for item in items:
+            if item.inner_text().strip() == fuel:
+                item.click()
+                break
 
     # mileage
-    filter_field = page.query_selector_all("div.polja-pretrage-item")[4]
-    inputs = filter_field.query_selector_all("input")
-    inputs[0].click(delay=100, click_count=2)
-    inputs[0].type(mileage_min, delay=100)
-    inputs[1].click(delay=100, click_count=2)
-    inputs[1].type(mileage_max, delay=100)
+    if mileage_min != "" and mileage_max != "":
+        filter_field = page.query_selector_all("div.polja-pretrage-item")[4]
+        inputs = filter_field.query_selector_all("input")
+        inputs[0].click(delay=100, click_count=2)
+        inputs[0].type(mileage_min, delay=100)
+        inputs[1].click(delay=100, click_count=2)
+        inputs[1].type(mileage_max, delay=100)
 
     # engine displacement
-    filter_field = page.query_selector_all("div.polja-pretrage-item")[5]
-    inputs = filter_field.query_selector_all("input")
-    inputs[0].click(delay=100, click_count=2)
-    inputs[0].type(engine_displ_min, delay=100)
-    inputs[1].click(delay=100, click_count=2)
-    inputs[1].type(engine_displ_max, delay=100)
+    if engine_displ_min !="" and engine_displ_max != "":
+        filter_field = page.query_selector_all("div.polja-pretrage-item")[5]
+        inputs = filter_field.query_selector_all("input")
+        inputs[0].click(delay=100, click_count=2)
+        inputs[0].type(engine_displ_min, delay=100)
+        inputs[1].click(delay=100, click_count=2)
+        inputs[1].type(engine_displ_max, delay=100)
 
     # year
-    filter_field = page.query_selector_all("div.polja-pretrage-item")[6]
-    range_items = filter_field.query_selector_all("div.select-range-item")
-    range_items[0].click(delay=100, click_count=2)
-    page.keyboard.type(year_min, delay=100)
-    time.sleep(2)
-    items = range_items[0].query_selector_all("li.select-dropdown-item")
-    for item in items:
-        if item.inner_text().strip() == year_min:
-            item.click()
-            break
+    if year_min != "" and year_max!="":
+        filter_field = page.query_selector_all("div.polja-pretrage-item")[6]
+        range_items = filter_field.query_selector_all("div.select-range-item")
+        range_items[0].click(delay=100, click_count=2)
+        page.keyboard.type(year_min, delay=100)
+        time.sleep(2)
+        items = range_items[0].query_selector_all("li.select-dropdown-item")
+        for item in items:
+            if item.inner_text().strip() == year_min:
+                item.click()
+                break
 
-    range_items[1].click(delay=100, click_count=2)
-    page.keyboard.type(year_max, delay=100)
-    time.sleep(2)
-    items = range_items[1].query_selector_all("li.select-dropdown-item")
-    for item in items:
-        if item.inner_text().strip() == year_max:
-            item.click()
-            break
+        range_items[1].click(delay=100, click_count=2)
+        page.keyboard.type(year_max, delay=100)
+        time.sleep(2)
+        items = range_items[1].query_selector_all("li.select-dropdown-item")
+        for item in items:
+            if item.inner_text().strip() == year_max:
+                item.click()
+                break
 
     # price
-    filter_field = page.query_selector_all("div.polja-pretrage-item")[7]
-    inputs = filter_field.query_selector_all("input")
-    inputs[0].click(delay=100, click_count=2)
-    inputs[0].type(price_min, delay=100)
-    inputs[1].click(delay=100, click_count=2)
-    inputs[1].type(price_max, delay=100)
+    if price_min !="" and price_max!="":
+        filter_field = page.query_selector_all("div.polja-pretrage-item")[7]
+        inputs = filter_field.query_selector_all("input")
+        inputs[0].click(delay=100, click_count=2)
+        inputs[0].type(price_min, delay=100)
+        inputs[1].click(delay=100, click_count=2)
+        inputs[1].type(price_max, delay=100)
 
     # transmission
-    filter_field = page.query_selector_all("div.polja-pretrage-item")[8]
-    filter_field.query_selector("div>label").click(delay=100, click_count=2)
-    items = filter_field.query_selector_all("li.select-dropdown-item")
-    for item in items:
-        if item.inner_text().strip() == transmission:
-            item.click()
-            break
+    if transmission != "":
+        filter_field = page.query_selector_all("div.polja-pretrage-item")[8]
+        filter_field.query_selector("div>label").click(delay=100, click_count=2)
+        items = filter_field.query_selector_all("li.select-dropdown-item")
+        for item in items:
+            if item.inner_text().strip() == transmission:
+                item.click()
+                break
 
     # city
-    filter_field = page.query_selector_all("div.polja-pretrage-item")[9]
-    filter_field.query_selector("div>label").click(delay=100, click_count=2)
-    page.keyboard.type(city, delay=75)
-    time.sleep(2)
-    items = filter_field.query_selector_all("li.select-dropdown-item")
-    for item in items:
-        if item.inner_text().strip() == city:
-            item.click()
-            break
+    if city != "":
+        filter_field = page.query_selector_all("div.polja-pretrage-item")[9]
+        filter_field.query_selector("div>label").click(delay=100, click_count=2)
+        page.keyboard.type(city, delay=75)
+        time.sleep(2)
+        items = filter_field.query_selector_all("li.select-dropdown-item")
+        for item in items:
+            if item.inner_text().strip() == city:
+                item.click()
+                break
 
 
 def get_filters_from_args():
