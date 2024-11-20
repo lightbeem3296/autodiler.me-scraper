@@ -1,0 +1,45 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File with Arguments",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "--manufacturer",
+                "Renault",
+                "--model",
+                "Scenic",
+                "--body",
+                "MiniVan",
+                "--fuel",
+                "Dizel",
+                "--mileage_min",
+                "30",
+                "--mileage_max",
+                "300000",
+                "--engine_displ_min",
+                "20",
+                "--engine_displ_max",
+                "2000",
+                "--year_min",
+                "2010",
+                "--year_max",
+                "2019",
+                "--price_min",
+                "100",
+                "--price_max",
+                "10000",
+                "--transmission",
+                "Manuelni",
+                "--city",
+                "Herceg Novi",
+            ]
+        }
+    ]
+}

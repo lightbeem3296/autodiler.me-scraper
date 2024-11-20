@@ -1,0 +1,4 @@
+.venv/
+output/
+uBlock0.chromium/
+user_data_dir/
