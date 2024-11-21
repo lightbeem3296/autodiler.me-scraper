@@ -8,9 +8,6 @@ from typing import Any, Dict, Tuple
 import requests
 from loguru import logger
 
-HEADLESS_MODE = True
-HOME_LINK = "https://autodiler.me"
-
 CUR_DIR = Path(__file__).parent
 OUTPUT_DIR = CUR_DIR / "output"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
