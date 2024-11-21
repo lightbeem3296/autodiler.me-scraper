@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 from loguru import logger
 from playwright.sync_api import Page, sync_playwright
 
-HEADLESS_MODE = False
+HEADLESS_MODE = True
 HOME_LINK = "https://autodiler.me"
 
 CUR_DIR = Path(__file__).parent
