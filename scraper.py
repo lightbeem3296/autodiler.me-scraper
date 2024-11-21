@@ -10,7 +10,7 @@ from loguru import logger
 from playwright.sync_api import Page, sync_playwright
 
 HEADLESS_MODE = False
-HOME_LINK = "https://autodiler.me/"
+HOME_LINK = "https://autodiler.me"
 
 CUR_DIR = Path(__file__).parent
 OUTPUT_DIR = CUR_DIR / "output"
@@ -95,7 +95,7 @@ def input_filter(
         inputs[1].type(mileage_max, delay=100)
 
     # engine displacement
-    if engine_displ_min !="" and engine_displ_max != "":
+    if engine_displ_min != "" and engine_displ_max != "":
         filter_field = page.query_selector_all("div.polja-pretrage-item")[5]
         inputs = filter_field.query_selector_all("input")
         inputs[0].click(delay=100, click_count=2)
@@ -104,7 +104,7 @@ def input_filter(
         inputs[1].type(engine_displ_max, delay=100)
 
     # year
-    if year_min != "" and year_max!="":
+    if year_min != "" and year_max != "":
         filter_field = page.query_selector_all("div.polja-pretrage-item")[6]
         range_items = filter_field.query_selector_all("div.select-range-item")
         range_items[0].click(delay=100, click_count=2)
@@ -126,7 +126,7 @@ def input_filter(
                 break
 
     # price
-    if price_min !="" and price_max!="":
+    if price_min != "" and price_max != "":
         filter_field = page.query_selector_all("div.polja-pretrage-item")[7]
         inputs = filter_field.query_selector_all("input")
         inputs[0].click(delay=100, click_count=2)
@@ -306,8 +306,8 @@ def main():
         product_list = []
 
         while True:
-            logger.info("fetch product details for current page")
-            soup = BeautifulSoup(page.content())
+            logger.info("fetch product details")
+            soup = BeautifulSoup(page.content(), "html.parser")
             product_divs = soup.select("div.oglasi-item-tekst")
             for product_div in product_divs:
                 title = product_div.select_one("h3").text.strip()
@@ -327,7 +327,7 @@ def main():
                         "year": year,
                         "fuel": fuel,
                         "price": price,
-                        "link": link,
+                        "link": HOME_LINK + link,
                     }
                 )
 
@@ -338,16 +338,20 @@ def main():
                 if last_btn.inner_text().strip() == "sledeća":
                     logger.info("next page button found")
                     logger.info("click next page button")
-                    last_btn.click()
-                    time.sleep(10)
+                    page_link = last_btn.query_selector("a").get_attribute("href")
+                    page_link = HOME_LINK + page_link
+                    page.goto(page_link)
+                    time.sleep(3)
                     continue
 
             logger.info("no more pages")
             break
 
-        with RESULT_FILENAME.open("w") as file:
+        with RESULT_FILENAME.open("w", encoding="utf-8") as file:
             for product in product_list:
-                file.write(json.dumps(product) + "\n")
+                file.write(json.dumps(product, ensure_ascii=False) + "\n")
+
+        logger.info(f"result saved to {RESULT_FILENAME}")
 
 
 if __name__ == "__main__":
