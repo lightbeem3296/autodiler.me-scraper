@@ -314,9 +314,9 @@ def main():
                 spec_value_elems = product_div.select(
                     "span.oglasi-item-description_spec-value"
                 )
-                mileage = spec_value_elems[0].text.strip()
-                year = spec_value_elems[1].text.strip()
-                fuel = spec_value_elems[2].text.strip()
+                mileage = spec_value_elems[0].text.strip(":").strip()
+                year = spec_value_elems[1].text.strip(":").strip()
+                fuel = spec_value_elems[2].text.strip(":").strip()
                 price = product_div.select_one("div.cena").text.strip()
                 link = product_div.select_one("a.oglasi-item-heading").attrs["href"]
 
@@ -341,7 +341,7 @@ def main():
                     page_link = last_btn.query_selector("a").get_attribute("href")
                     page_link = HOME_LINK + page_link
                     page.goto(page_link)
-                    time.sleep(3)
+                    time.sleep(5)
                     continue
 
             logger.info("no more pages")
