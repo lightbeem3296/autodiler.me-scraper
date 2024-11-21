@@ -1917,15 +1917,6 @@ def fetch_products(
     if response.status_code == 200:
         resp = response.json()
         return resp
-
-        paid_count = resp["paidCount"]
-        free_count = resp["freeCount"]
-        total_count = paid_count + free_count
-
-        print(f"paid: {paid_count}")
-        print(f"free: {free_count}")
-        print(f"free: {total_count}")
-
     else:
         print(f"Request failed with status code {response.status_code}")
         print("Error response:", response.text)
